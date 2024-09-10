@@ -2,14 +2,14 @@
 // script.js
 const questions = [
     {
-        question: "What is the capital of France?",
-        choices: ["Paris", "London", "Rome", "Berlin"],
-        correctAnswer: "Paris"
+        question: " What is the boiling point of water at sea level?",
+        choices: ["90°C","100°C", "110°C", "120°C"],      
+        correctAnswer: "100°C"
     },
     {
-        question: "Which planet is known as the Red Planet?",
-        choices: ["Mars", "Earth", "Jupiter", "Saturn"],
-        correctAnswer: "Mars"
+        question: "Who painted the Mona Lisa?",
+        choices: ["Pablo Picasso", "Vincent van Gogh", " Leonardo da Vinci", "Claude Monet"],
+        correctAnswer: " Leonardo da Vinci"
     },
     {
         question: "Who wrote 'To be, or not to be'?",
@@ -32,23 +32,24 @@ const feedbackElement = document.getElementById('feedback');
 const nextButton = document.getElementById('next-question');
 const scoreElement = document.getElementById('score');
 
+
 function loadQuestion() {
     resetState();
     const currentQuestion = questions[currentQuestionIndex];
     questionElement.textContent = currentQuestion.question;
-    choiceButtons.forEach((button, index) => {
-        button.textContent = currentQuestion.choices[index];
-        button.addEventListener('click', selectAnswer);
-    });
+    for (let i = 0; i < choiceButtons.length; i++) {
+        choiceButtons[i].textContent = currentQuestion.choices[i];
+        choiceButtons[i].onclick = selectAnswer;  
+    }
 }
 
 function resetState() {
     feedbackElement.textContent = '';
     nextButton.style.display = 'none';
-    choiceButtons.forEach(button => {
-        button.disabled = false;
-        button.style.backgroundColor = '#007BFF';
-    });
+    for (let i = 0; i < choiceButtons.length; i++) {
+        choiceButtons[i].disabled = false;
+        choiceButtons[i].style.backgroundColor = '#007BFF';
+    }
 }
 
 function selectAnswer(e) {
@@ -66,9 +67,13 @@ function selectAnswer(e) {
         feedbackElement.textContent = 'Try Again!';
     }
 
-    choiceButtons.forEach(button => button.disabled = true);
+    for (let i = 0; i < choiceButtons.length; i++) {
+        choiceButtons[i].disabled = true;
+    }
+
     nextButton.style.display = 'block';
 }
+
 
 function nextQuestion() {
     currentQuestionIndex++;
@@ -103,7 +108,7 @@ document.addEventListener('keydown', (e) => {
         const buttonIndex = key - 1;
         choiceButtons[buttonIndex].click();
     }
-});
+ });
 
 loadQuestion();
 
@@ -112,5 +117,10 @@ loadQuestion();
 
 
 
+// let fruits = ['apple', 'banana', 'cherry'];
+
+// fruits.forEach(function(fruit, index) {
+//     console.log(index + ": " + fruit);
+// });
 
 
